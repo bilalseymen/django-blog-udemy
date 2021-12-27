@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j5ed!&4lfz!eixxu!$h@*3b-n@frm56(45z3-vjm!+w5p3wd4q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['194.147.58.159', 'www.symnsoft.com', 'symnsoft.com']
+ALLOWED_HOSTS = ['194.147.58.159', 'www.symnsoft.com', 'symnsoft.com', '127.0.0.1']
 
 
 # Application definition
@@ -73,16 +73,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'obblog',
-        'USER': 'oguser',
-        'PASSWORD': 'ogpassword',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if DEBUG == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'obblog',
+            'USER': 'oguser',
+            'PASSWORD': 'ogpassword',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
